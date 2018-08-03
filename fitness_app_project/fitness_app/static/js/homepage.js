@@ -154,7 +154,7 @@ $("#search-results").on("click", ".saveWorkout", function() {
       muscles = workout.muscles.join(", ");
     }
   });
-  console.log("muscles", muscles);
+
   $.ajax({
     type: "POST",
     url: "/api/workout/save/" + username,
@@ -166,7 +166,6 @@ $("#search-results").on("click", ".saveWorkout", function() {
       description: description,
       muscles: muscles
     },
-    dataType: "application/json",
     success: console.log("success")
   });
 });
@@ -194,6 +193,7 @@ $("#search-results").on("click", ".saveFood", function() {
       carbs = food.food.nutrients.CHOCDF;
     }
   });
+
   $.ajax({
     type: "POST",
     url: "/api/food/save/" + username,
@@ -206,7 +206,6 @@ $("#search-results").on("click", ".saveFood", function() {
       fat: fat,
       carbs: carbs
     },
-    dataType: "application/json",
     success: console.log("success from save food")
   });
 });
