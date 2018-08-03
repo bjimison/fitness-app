@@ -6,7 +6,7 @@ $(".chatbot-icon").on("click", function() {
 
 let workoutResponse = null;
 let foodResponse = null;
-let username = document.getElementById("username");
+let username = $("#username").text();
 
 let muscles = {
   1: "Biceps Long Head",
@@ -221,6 +221,15 @@ const renderCustomMeals = response => {
                   <p>Instructions: ${meal.fields.instructions}</p>
                   <p>Portions: ${meal.fields.portions}</p>
                   <p>Macros: ${meal.fields.macros}</p>
+                  <input value='Save this meal' type='submit' class='saveCustomMeal' id='${
+                    meal.pk
+                  }' data-id='${meal.pk}' data-label="${
+      meal.fields.label
+    }" data-ingre="${meal.fields.ingredients}" data-instruc="${
+      meal.fields.instructions
+    }" data-portions="${meal.fields.portions}" data-macros="${
+      meal.fields.macros
+    }">
                     </div> <hr id="horizontal">`);
   }
 };
@@ -233,9 +242,65 @@ const renderCustomCircuits = response => {
     $("#circuit-feed").append(`<div id="${circuit.pk}">
                   <h1>Name: ${circuit.fields.name}</h1>
                   <p>Workouts: ${circuit.fields.workouts}</p>
-                    </div> <hr id="horizontal">`);
+                    </div> 
+                    <input value='Save this circuit' type='submit' class='saveCustomCircuit' data-name="${
+                      circuit.fields.name
+                    }" data-workouts="${
+      circuit.fields.workouts
+    }"><hr id="horizontal">`);
   }
 };
+
+$("#meal-feed").on("click", ".saveCustomMeal", function() {
+  console.log("clicked");
+  console.log(username);
+
+  let label = $(this).data("label");
+  let ingredients = $(this).data("ingre");
+  let instructions = $(this).data("instruc");
+  let portions = $(this).data("portions");
+  let macros = $(this).data("macros");
+
+  console.log(label);
+  console.log(ingredients);
+  console.log(portions);
+
+  $.ajax({
+    type: "POST",
+    url: "/api/meal/save/" + username,
+    data: {
+      label: label,
+      ingredients: ingredients,
+      instructions: instructions,
+      portions: portions,
+      macros: macros
+    },
+    dataType: "application/json",
+    success: console.log("success from save meal")
+  });
+});
+
+$("#circuit-feed").on("click", ".saveCustomCircuit", function() {
+  console.log("clicked");
+  console.log(username);
+
+  let name = $(this).data("name");
+  let workouts = $(this).data("workouts");
+
+  console.log(name);
+  console.log(workouts);
+
+  $.ajax({
+    type: "POST",
+    url: "/api/circuit/save/" + username,
+    data: {
+      name: name,
+      workouts: workouts
+    },
+    dataType: "application/json",
+    success: console.log("success from save circuit")
+  });
+});
 
 $.ajax({
   method: "GET",

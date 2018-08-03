@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Custom_Meal, Custom_Circuit, Workout, Food
 # from django.contrib.auth.decorators import login_required
-from .forms import WorkoutForm, FoodForm
+from .forms import WorkoutForm, FoodForm, MealForm, CircuitForm
 from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -191,7 +191,7 @@ def save_food(request, username):
             return redirect('homepage')
     else: 
         form = FoodForm()
-    return render(requet, 'fitness_app/homepage.html', {'form':form})
+    return render(request, 'fitness_app/homepage.html', {'form':form})
 
 
 
@@ -200,3 +200,34 @@ def find_food(request, food):
     url = 'https://api.edamam.com/api/food-database/parser?ingr='+ food + '&app_id=2d7d9644&app_key=8e911eeff3b68f04eafd1fffeaf16401'
     r = requests.get(url=url)
     return HttpResponse(r, content_type='application/json')
+
+################ SAVE CUSTOM MEALS AND CIRCUTS ############
+@csrf_exempt
+def save_meal(request, username):
+    form = MealForm(request.POST)
+    if request.method == 'POST':
+        print('in if', str(form))
+        if form.is_valid():
+            print('if')
+            meal = form.save(commit=False)
+            meal.user = request.user    
+            meal.save()
+            return redirect('homepage')
+    else: 
+        form = MealForm()
+    return render(request, 'fitness_app/homepage.html', {'form':form})
+
+@csrf_exempt
+def save_circuit(request, username):
+    form = CircuitForm(request.POST)
+    if request.method == 'POST':
+        print('in if', str(form))
+        if form.is_valid():
+            print('if')
+            circuit = form.save(commit=False)
+            circuit.user = request.user    
+            circuit.save()
+            return redirect('homepage')
+    else: 
+        form = CircuitForm()
+    return render(request, 'fitness_app/homepage.html', {'form':form})

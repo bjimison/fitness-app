@@ -52,14 +52,11 @@ input[type="submit"] {
   border: 1px solid #2cdad9;
 }
 
-
 input[type="submit"]:hover {
   background-color: #2cdad9;
   color: #02243e;
 }
 
-<<<<<<< HEAD
-=======
 select,
 input[type="text"],
 input[type="password"] {
@@ -76,7 +73,6 @@ input[type="password"] {
   color: #19779c;
 }
 
->>>>>>> upstream/master
 footer {
   position: fixed;
   bottom: 0;
@@ -211,8 +207,8 @@ Homepage
 ================================================*/
 
 #horizontal {
-  opacity: .5;
-  border-color:#2cdad9;
+  opacity: 0.5;
+  border-color: #2cdad9;
 }
 
 #username {
@@ -288,13 +284,13 @@ Homepage
   padding-left: 0;
 }
 
-.ulClassName{
+.ulClassName {
   display: flex;
   list-style-type: none;
   margin: 0 auto 100px;
 }
 
-.paginationjs{
+.paginationjs {
   display: flex;
 }
 
@@ -328,4 +324,30 @@ Homepage
 
 .hide {
   display: none;
+}
+
+/************* about page ***************/
+#about {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.p-wrap {
+
+  text-align: center;
+}
+
+#about p {
+  max-width: 50%;
+}
+
+#about a {
+  color: white;
+}
+
+#about a:hover {
+  text-decoration: underline;
 }
