@@ -29,5 +29,5 @@ urlpatterns = [
     path('api/meal/save/<username>', views.save_meal, name="save_meal"),
     path('api/customcircuits/', views.custom_circuits, name="customcircuit"),
     path('api/circuit/save/<username>', views.save_circuit, name="save_circuit"),
-
+    
 ]
