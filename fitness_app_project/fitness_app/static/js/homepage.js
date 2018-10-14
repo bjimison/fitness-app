@@ -1,6 +1,5 @@
 // Chatbot
 $(".chatbot-icon").on("click", function() {
-  console.log("clicked");
   $(".chat").toggleClass("hide");
 });
 
@@ -41,7 +40,6 @@ const renderFoodSuccess = response => {
     dataSource: foodResponse,
     pageSize: 5,
     callback: function(data, pagination) {
-      console.log("data", data);
       // template method of yourself
       let html = foodTemplate(data);
       $("#search-results").html(html);
@@ -115,7 +113,6 @@ $("#find-button").on("click", function(e) {
   if ($("#search-type").val() === "food") {
     let foodInput = $("#food-selection").val();
     let food = foodInput.replace(/" "/g, "%20");
-    console.log(food);
     $.ajax({
       method: "GET",
       url: "/api/food/find/" + food,
@@ -124,7 +121,6 @@ $("#find-button").on("click", function(e) {
     });
   } else if ($(".form-control").val() === "workouts") {
     let muscle = $("#muscle-selection").val();
-    console.log("invoked");
     $.ajax({
       method: "GET",
       url: "/api/workout/find/" + muscle,
@@ -212,7 +208,6 @@ $("#search-results").on("click", ".saveFood", function() {
 
 const renderCustomMeals = response => {
   let meals = JSON.parse(response.meals);
-  console.log(meals);
   for (let i = 0; i < meals.length; i++) {
     let meal = meals[i];
     $("#meal-feed").append(`<div id="${meal.pk}">
@@ -230,7 +225,7 @@ const renderCustomMeals = response => {
     }" data-portions="${meal.fields.portions}" data-macros="${
       meal.fields.macros
     }">
-                    </div> <hr id="horizontal">`);
+    </div> <hr id="horizontal">`);
   }
 };
 
